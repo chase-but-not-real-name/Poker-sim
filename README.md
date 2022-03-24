@@ -29,7 +29,8 @@ Total Hands Dealt       100000
 
 **Files**-
 Input a file of numbers between 0 and 51 with 5 number on each line.
-Example
+
+File example
 
 ```.\poker.exe -f file1.txt file1out.txt```
 ```
