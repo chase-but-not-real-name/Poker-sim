@@ -16,7 +16,6 @@ int main( int argc, char **argv)
             return result;
         }
     }
-    
     int seed;
     int size = 0;
     int b;
@@ -48,7 +47,10 @@ int main( int argc, char **argv)
         return 0;
     }
     double count[9];
-    
+    for(int i = 0; i < 10; i++)
+    {
+        count[i] = 0;
+    }
     if(isfile)
     {
         string Input = argv[2];
@@ -92,7 +94,6 @@ int main( int argc, char **argv)
         {
             size = 1;
         }
-        
         fout.precision(6);
         fout << setw(20) << left << "Hand Name" << right << setw(10) << "Dealt"
         << setw(15) << "Chance" << endl;
@@ -126,12 +127,10 @@ int main( int argc, char **argv)
         
         fout << setw(20) << left << "High Card" << right << setw(10) << count[0] 
         << setw(15) << fixed << (count[0] / size) * 100 << "%" << defaultfloat << endl;
-        
         if(zero)
         {
             size = 0;
         }
-        
         fout << setw(20) << left << "Total Hands Dealt" << right << setw(10) << size
         << endl;
         fout.close();
@@ -146,7 +145,6 @@ int main( int argc, char **argv)
             b = classifyHand(Hand, 5);
             count[b] += 1;
         }
-        
         if(zero)
         {
             size = 1;
@@ -184,12 +182,10 @@ int main( int argc, char **argv)
         
         cout << setw(20) << left << "High Card" << right << setw(10) << count[0] 
         << setw(15) << fixed << (count[0] / size) * 100 << "%" << defaultfloat << endl << endl;
-        
         if(zero)
         {
             size = 0;
         }
-        
         cout << setw(20) << left << "Total Hands Dealt" << right << setw(10) << size
         << endl;
     }

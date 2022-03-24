@@ -1,17 +1,21 @@
 #include "Poker.h"
 
-int getRandom(int seed){
+int getRandom(int seed)
+{
     static default_random_engine generator( seed );
     uniform_int_distribution<int> distribution(0,51);
     return distribution( generator );
 }
 
-void DrawHand(int Hand[], int seed){
-    for(int i = 0; i < 5; i++){
-        Hand[i] = getRandom(seed);
-        //draws random numbers between 0 and 51
-        for(int j = 0; j < i; j++){
-            if(Hand[j] == Hand[i]){
+void DrawHand(int Hand[], int seed)
+{
+    for(int i = 0; i < 5; i++)
+    {
+        Hand[i] = getRandom(seed); //draws random numbers between 0 and 51
+        for(int j = 0; j < i; j++)
+        {
+            if(Hand[j] == Hand[i])
+            {
                 //if dupelicate then draw another card
                 Hand[i] = getRandom(seed);
                 j = -1;
@@ -20,14 +24,18 @@ void DrawHand(int Hand[], int seed){
     }
 }
 
-void sort(int ArrayN[], const int size){
+void sort(int ArrayN[], const int size)
+{
     //GOOD OLD BUBBLE SORT WOOOOOO MY FAVORITE (;
     bool swapMade = true;
     int i, j;
-    for(i = 0; i < size - 1 && swapMade; i++){
+    for(i = 0; i < size - 1 && swapMade; i++)
+    {
         swapMade = false;
-        for(j = 0; j < size - 1 - i; j ++){
-            if( ArrayN[j] > ArrayN[j + 1] ){
+        for(j = 0; j < size - 1 - i; j ++)
+        {
+            if( ArrayN[j] > ArrayN[j + 1] )
+            {
                 int temp = ArrayN[j];
                 ArrayN[j] = ArrayN[j + 1];
                 ArrayN[j + 1] = temp;
@@ -39,23 +47,25 @@ void sort(int ArrayN[], const int size){
 
 bool CheckRoyalFlush(int ArrayS[], int ArrayN[], const int size)
 {
-    if(ArrayN[4] != 12)// checks if last card is a king else false
+    if(ArrayN[4] != 12)
     {
+        // checks if last card is a king else false
         return false;
     }
     else
     {
         for(int i = 1; i < size - 1; i++)
-            //checks if n+1 to n+4 is counting up else false
         {
+            //checks if n+1 to n+4 is counting up else false
             int j = i + 1;
             if(ArrayN[i] + 1 != ArrayN[j])
             {
                 return false;
             }
         }
-        if(ArrayN[0] != 0)// checks if first card is an ace else false
+        if(ArrayN[0] != 0)
         {
+            // checks if first card is an ace else false
             return false;
         }
     }
@@ -63,8 +73,8 @@ bool CheckRoyalFlush(int ArrayS[], int ArrayN[], const int size)
     {
         int j = i + 1;
         if(ArrayS[i] != ArrayS[j])
-            //checks if all numbers have same suit value else false
         {
+            //checks if all numbers have same suit value else false
             return false;
         }
     }
@@ -79,8 +89,8 @@ bool CheckStraitFlush(int ArrayS[], int ArrayN[], const int size)
     {
         int j = i + 1;
         if(ArrayN[i] + 1 != ArrayN[j])
-            //checks if n to n+4 is counting up else false
         {
+            //checks if n to n+4 is counting up else false
             return false;
         }
     }
@@ -88,8 +98,8 @@ bool CheckStraitFlush(int ArrayS[], int ArrayN[], const int size)
     {
         int j = i + 1;
         if(ArrayS[i] != ArrayS[j])
-            //checks if all numbers have same suit value else false
         {
+            //checks if all numbers have same suit value else false
             return false;
         }
     }
@@ -103,8 +113,8 @@ bool CheckFlush(int ArrayS[], const int size)
     {
         int j = i + 1;
         if(ArrayS[i] != ArrayS[j])
-            //checks if all numbers have same suit value else false
         {
+            //checks if all numbers have same suit value else false
             return false;
         }
     }
@@ -115,13 +125,13 @@ bool CheckFlush(int ArrayS[], const int size)
 bool CheckStrait(int ArrayN[], const int size)
 {
     if(ArrayN[4] == 12 && ArrayN[0] == 0)
-        //checks if first card is ace and last card is king 
     {
+        //checks if first card is ace and last card is king
         for(int i = 1; i < size - 1; i++)
         {
             if(ArrayN[i] + 1 != ArrayN[i+1])
-                //checks if n to n+4 is counting up else false
             {
+                //checks if n to n+4 is counting up else false
                 return false;
             }
         }
@@ -131,8 +141,8 @@ bool CheckStrait(int ArrayN[], const int size)
         for(int i = 0; i < size - 1; i++)
         {
             if(ArrayN[i] + 1 != ArrayN[i+1])
-                //checks if n to n+4 is counting up else false
             {
+                //checks if n to n+4 is counting up else false
                 return false;
             }
         }
@@ -150,8 +160,8 @@ bool CheckFourKind(int ArrayN[], const int size)
     {
         int j = i + 1;
         if(ArrayN[i] == ArrayN[j] && c)
-            //compares and counts how many times it finds the name number
         {
+            //compares and counts how many times it finds the name number
             a += 1;
         }
         else
@@ -164,8 +174,9 @@ bool CheckFourKind(int ArrayN[], const int size)
             }
         }
     }
-    if(a == 3)//if compare counter = 3 then return true
+    if(a == 3)
     {
+        //if compare counter = 3 then return true
         return true;
     }
     return false;
@@ -181,8 +192,8 @@ bool CheckFullHouse(int ArrayN[], const int size)
     {
         int j = i + 1;
         if(ArrayN[i] == ArrayN[j] && c)
-            //compares and counts how many times it finds the name number
         {
+            //compares and counts how many times it finds the name number
             a += 1;
         }
         else
@@ -200,13 +211,13 @@ bool CheckFullHouse(int ArrayN[], const int size)
         }
     }
     if(a == 1 && b == 2)
-        //if compare counter = 1 and second compare counter = 2 then return true
     {
+        //if compare counter = 1 and second compare counter = 2 then return true
         return true;
     }
     if(a == 2 && b == 1)
-        //if compare counter = 2 and second compare counter = 1 then return true
     {
+        //if compare counter = 2 and second compare counter = 1 then return true
         return true;
     }
     return false;
@@ -222,8 +233,8 @@ bool CheckThreeKind(int ArrayN[], const int size)
     {
         int j = i + 1;
         if(ArrayN[i] == ArrayN[j] && c)
-            //compares and counts how many times it finds the name number
         {
+            //compares and counts how many times it finds the name number
             a += 1;
         }
         else
@@ -237,8 +248,8 @@ bool CheckThreeKind(int ArrayN[], const int size)
         }
     }
     if(a == 2)
-        //if compare counter = 2 then return true
     {
+        //if compare counter = 2 then return true
         return true;
     }
     return false;
@@ -254,8 +265,8 @@ bool CheckTwoPair(int ArrayN[], const int size)
     {
         int j = i + 1;
         if(ArrayN[i] == ArrayN[j] && c)
-            //compares and counts how many times it finds the name number
         {
+            //compares and counts how many times it finds the name number
             a += 1;
         }
         else
@@ -273,8 +284,8 @@ bool CheckTwoPair(int ArrayN[], const int size)
         }
     }
     if(a == 1 && b == 1)
-        //if compare counter = 1 and second compare counter = 1 then return true
     {
+        //if compare counter = 1 and second compare counter = 1 then return true
         return true;
     }
     return false;
@@ -289,8 +300,8 @@ bool CheckTwoKind(int ArrayN[], const int size)
     {
         int j = i + 1;
         if(ArrayN[i] == ArrayN[j] && c)
-            //compares and counts how many times it finds the name number
         {
+            //compares and counts how many times it finds the name number
             a += 1;
         }
         else
@@ -304,8 +315,8 @@ bool CheckTwoKind(int ArrayN[], const int size)
         }
     }
     if(a == 1)
-        //if compare counter = 1 then return true
     {
+        //if compare counter = 1 then return true
         return true;
     }
     return false;
@@ -316,8 +327,8 @@ int classifyHand(int Hand[], int num)
     int ArrayS[5];
     int ArrayN[5];
     for(int i = 0; i < num; i++)
-        //takes card value and splits it between card number and card suit
     {
+        //takes card value and splits it between card number and card suit
         int a = Hand[i];
         ArrayS[i] = a / 13;
         ArrayN[i] = a%13;
